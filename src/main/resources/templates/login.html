@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Leave Management System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link th:href="@{/css/bootstrap.min.css}" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link th:href="@{/css/style.css}" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" th:href="@{/css/morris.css}" type="text/css"/>
+<!-- Graph CSS -->
+<link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/jquery-ui.css}"> 
+<!-- jQuery -->
+<script th:src="@{/js/jquery-2.2.0.min.js}"></script>
+<!-- //jQuery -->
+<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
+<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- lined-icons -->
+<!-- <link rel="stylesheet" th:href="@{/css/icon-font.min.css}" type='text/css' /> -->
+<!-- //lined-icons -->
+<link rel="shortcut icon" th:href="@{/img/favicon.png}">
+</head> 
+<body>
+	<div class="main-wthree">
+	<div class="container">
+	<div class="sin-w3-agile">
+		<h2>Leave Management System</h2>
+		<div align="center" th:if="${param.error}">
+			<p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+		</div>
+		<form th:action="@{/login}" method="post">
+			<div class="username">
+				<span class="username">Username:</span>
+				<input type="text" id="email" name="email" class="name" placeholder="" required="">
+				<div class="clearfix"></div>
+			</div>
+			<div class="password-agileits">
+				<span class="username">Password:</span>
+				<input type="password" id="password" name="password" class="password" placeholder="" required="">
+				<div class="clearfix"></div>
+			</div>
+			<div class="rem-for-agile">
+				<input type="checkbox" name="remember" class="remember">Remember me<br>
+				<a href="#">Forgot Password</a><br>
+			</div>
+			<div class="login-w3">
+					<input type="submit" class="login" value="Sign In">
+			</div>
+			<div class="clearfix"></div>
+		</form>
+			<div class="back">
+				<a th:href="@{/registration}">Register</a>
+			</div>
+			<div class="footer">
+				<p>&copy; 2018 D&D by Navin . All Rights Reserved</p>
+			</div>
+	</div>
+	</div>
+	</div>
+</body>
+</html>

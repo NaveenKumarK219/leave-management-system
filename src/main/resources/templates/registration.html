@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Registration</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link th:href="@{/css/bootstrap.min.css}" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link th:href="@{/css/style.css}" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" th:href="@{/css/morris.css}" type="text/css"/>
+<!-- Graph CSS -->
+<link th:href="@{/css/font-awesome.css}" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/jquery-ui.css}"> 
+<!-- jQuery -->
+<script th:src="@{/js/jquery-2.2.0.min.js}"></script>
+<!-- //jQuery -->
+<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
+<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- lined-icons -->
+<!-- <link rel="stylesheet" th:href="@{/css/icon-font.min.css}" type='text/css' /> -->
+<!-- //lined-icons -->
+<link rel="shortcut icon" th:href="@{/img/favicon.png}">
+</head> 
+<body>
+	<div class="main-wthree">
+	<div class="container">
+	<div class="sin-w3-agile">
+		<h2>Leave Management System</h2>
+		<h2>Sign Up</h2>
+		<label class="alert alert-info" style="width: 100%;" th:if="${successMessage != null}" th:text="${successMessage}"></label>
+		<form th:action="@{/registration}" th:object="${userInfo}" method="post">
+			<div class="username">
+				<span class="username">First Name:</span>
+				<input type="text" th:field="*{firstName}" class="name" placeholder="First Name" required>
+				<label class="alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" ></label>
+				<div class="clearfix"></div>
+			</div>
+			<div class="username">
+				<span class="username">Last Name:</span>
+				<input type="text" th:field="*{lastName}" class="name" placeholder="Last Name" required>
+				<label class="alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" ></label>
+				<div class="clearfix"></div>
+			</div>
+			<div class="username">
+				<span class="username">Email:</span>
+				<input type="text" th:field="*{email}" class="name" placeholder="E-mail" required>
+				<label class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" ></label>
+				<div class="clearfix"></div>
+			</div>
+			<div class="password-agileits">
+				<span class="username">Password:</span>
+				<input type="password" th:field="*{password}" class="password" required>
+				<label class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" ></label>
+				<div class="clearfix"></div>
+			</div>
+			<div class="username">
+				<span class="username">Role:</span>
+				<div style="width:  71%;padding:  10px;">
+					<label style="padding-left: 25px;padding-right: 10px;">
+					<input type="radio" th:field="*{role}" value="MANAGER" checked="checked">MANAGER</label>
+					<label><input type="radio" th:field="*{role}" value="EMPLOYEE" >EMPLOYEE</label> 
+				</div>
+				<label class="alert-danger" th:if="${#fields.hasErrors('role')}" th:errors="*{role}" ></label>
+				<div class="clearfix"></div>
+			</div>
+			<div class="login-w3">
+					<input type="submit" class="login" value="Sign Up">
+			</div>
+			<div class="clearfix"></div>
+		</form>
+		<div class="back">
+						<a th:href="@{/login}">LOGIN</a>
+				</div>
+				<div class="footer">
+					<p>&copy; 2018 D&D by Navin. All rights reserved.</p>
+				</div>
+	</div>
+	</div>
+	</div>
+</body>
+</html>
