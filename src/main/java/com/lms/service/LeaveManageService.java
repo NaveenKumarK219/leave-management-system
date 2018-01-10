@@ -1,5 +1,7 @@
 package com.lms.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,26 @@ public class LeaveManageService {
 
 	leaveDetails.setActive(true);
 	leaveManageRepository.save(leaveDetails);
+    }
+
+    public List<LeaveDetails> getAllLeaves() {
+
+	return leaveManageRepository.findAll();
+    }
+
+    public LeaveDetails getLeaveDetailsOnId(int id) {
+
+	return leaveManageRepository.findOne(id);
+    }
+
+    public void updateLeaveDetails(LeaveDetails leaveDetails) {
+
+	leaveManageRepository.save(leaveDetails);
+
+    }
+
+    public List<LeaveDetails> getAllActiveLeaves() {
+
+	return leaveManageRepository.getAllActiveLeaves();
     }
 }

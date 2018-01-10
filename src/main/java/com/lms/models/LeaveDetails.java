@@ -32,9 +32,16 @@ public class LeaveDetails {
     @Column(name = "to_date")
     private Date toDate;
 
+    @NotEmpty(message = "Please select type of leave!")
+    @Column(name = "leave_type")
+    private String leaveType;
+
     @NotEmpty(message = "Please provide a reason for the leave!")
-    @Column(name = "purpose")
-    private String purpose;
+    @Column(name = "reason")
+    private String reason;
+
+    @Column(name = "duration")
+    private int duration;
 
     @Column(name = "accept_reject_flag")
     private boolean acceptRejectFlag;
@@ -74,12 +81,28 @@ public class LeaveDetails {
 	this.toDate = toDate;
     }
 
-    public String getPurpose() {
-	return purpose;
+    public String getReason() {
+	return reason;
     }
 
-    public void setPurpose(String purpose) {
-	this.purpose = purpose;
+    public void setReason(String reason) {
+	this.reason = reason;
+    }
+
+    public String getLeaveType() {
+	return leaveType;
+    }
+
+    public void setLeaveType(String leaveType) {
+	this.leaveType = leaveType;
+    }
+
+    public int getDuration() {
+	return duration;
+    }
+
+    public void setDuration(int duration) {
+	this.duration = duration;
     }
 
     public boolean isAcceptRejectFlag() {

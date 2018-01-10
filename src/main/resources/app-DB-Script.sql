@@ -28,7 +28,9 @@ CREATE TABLE leave_details
 	employee_name character varying(50) NOT NULL,
 	from_date timestamp without time zone NOT NULL,
 	to_date timestamp without time zone NOT NULL,
-	purpose character varying(300) NOT NULL,
+	leave_type character varying(50) NOT NULL,
+	reason character varying(300) NOT NULL,
+	duration integer,
 	accept_reject_flag boolean,
 	active boolean,
 	CONSTRAINT leave_pkey PRIMARY KEY (id)

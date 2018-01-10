@@ -80,9 +80,7 @@
 				<div class="page">
 					
 					<div class="w3l-calendar-left">
-						<div class="calendar-heading">
-							
-						</div>
+						<div class="calendar-heading"></div>
 						<div class="monthly" id="mycalendar"></div>
 					</div>
 					
@@ -95,7 +93,7 @@
 <script th:src="@{/js/fullcalendar.min.js}"></script>
 <script>
 
-  $(document).ready(function() {
+$(document).ready(function() {
 
     $('#mycalendar').fullCalendar({
       header: {
@@ -103,26 +101,13 @@
         center: 'title',
         right: 'month,agendaWeek,listWeek'
       },
-      // defaultDate: '2017-12-12',
-      navLinks: true, // can click day/week names to navigate views
-      editable: true,
+      defaultDate: moment().format("YYYY-MM-DD"),
       eventLimit: true, // allow "more" link when too many events
-      selectable: true,
-      selectHelper: true,
-      select: function(start, end) {
-        var title = prompt('Event Title:');
-        var eventData;
-        if (title) {
-          eventData = {
-            title: title,
-            start: start,
-            end: end
-          };
-          $('#mycalendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-        }
-        $('#mycalendar').fullCalendar('unselect');
-      }
-      
+      events: '/leave-management-system/user/all-leaves'
+    	  /* [{"title":"Project Manager on leave","start":"2017-12-30","end":"2017-12-30"},
+               {"title":"Project Manager on leave","start":"2018-01-01","end":"2018-01-09"},
+               {"title":"Project Manager on leave","start":"2018-01-15","end":"2018-01-19"}]
+       */
     });
 
   });
@@ -170,7 +155,11 @@
 										
 										<li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/user/manage-users}"><i class="fa fa-users"></i> <span>Manage Users</span><div class="clearfix"></div></a></li>
 										
+										<li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/user/manage-leaves}"><i class="fa fa-calendar-check-o"></i> <span>Manage Leaves</span><div class="clearfix"></div></a></li>
+										
 										<li><a th:href="@{/user/apply-leave}"><i class="fa fa-calendar-plus-o"></i> <span>Apply Leave</span><div class="clearfix"></div></a></li>
+										
+										<li><a th:href="@{/user/my-leaves}"><i class="fa fa-calendar-check-o"></i> <span>My Leaves</span><div class="clearfix"></div></a></li>
 										
 										<li><a th:href="@{/user/change-password}"><i class="fa fa-key"></i> <span>Change Password</span><div class="clearfix"></div></a></li>
 										 

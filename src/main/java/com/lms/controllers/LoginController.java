@@ -3,6 +3,7 @@ package com.lms.controllers;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lms.models.UserInfo;
+import com.lms.service.LeaveManageService;
 import com.lms.service.UserInfoService;
 
 /**
@@ -28,6 +30,9 @@ public class LoginController {
 
     @Autowired
     private UserInfoService userInfoService;
+
+    @Autowired
+    LeaveManageService leaveManageService;
 
     /**
      * This method opens up the login page if user is not authenticated
@@ -97,13 +102,15 @@ public class LoginController {
      * 
      * @param request
      * @return ModelAndView
+     * @throws JSONException
      */
     @RequestMapping(value = "/user/home", method = RequestMethod.GET)
-    public ModelAndView home(ModelAndView mav, HttpServletRequest request) {
+    public ModelAndView home(ModelAndView mav, HttpServletRequest request) throws Exception {
 
 	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	UserInfo userInfo = userInfoService.findUserByEmail(auth.getName());
 	request.getSession().setAttribute("userInfo", userInfo);
+
 	mav.addObject("userInfo", userInfo);
 	mav.setViewName("home");
 	return mav;

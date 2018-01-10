@@ -67,7 +67,7 @@
         </ol>
         
         <div class="grid-form1">
-            <h3>Apply Leave</h3>
+            <h3>Request For Leave</h3>
             <div class="tab-content tab-pane active" id="horizontal-form">
                 
                 <form class="form-horizontal" th:action="@{/user/apply-leave}" method="post" th:object="${leaveDetails}">
@@ -80,7 +80,6 @@
 						
 						<label class="alert-danger col-sm-6 col-sm-offset-4" th:if="${#fields.hasErrors('fromDate')}" th:errors="*{fromDate}" ></label> 
 					</div>
-
 					<div class="form-group">
 						<label class="col-sm-4 control-label">To Date :</label>
 						<div class="col-sm-6">
@@ -90,12 +89,24 @@
 						<label class="alert-danger col-sm-6 col-sm-offset-4" th:if="${#fields.hasErrors('toDate')}" th:errors="*{toDate}"></label> 
 					</div>
 					<div class="form-group">
-						<label class="col-sm-4 control-label">Purpose :</label>
+						<label class="col-sm-4 control-label">Leave Type :</label>
 						<div class="col-sm-6">
-							<textarea th:field="*{purpose}" placeholder="purpose of leave" class="form-control1" style="height: 100px;"></textarea>
+							<select th:field="*{leaveType}" class="form-control1">
+								<option value="">Select</option>
+								<option value="CASUAL LEAVE">CASUAL LEAVE</option>
+								<option value="SICK LEAVE">SICK LEAVE</option>
+							</select>
+						</div>
+						
+						<label class="alert-danger col-sm-6 col-sm-offset-4" th:if="${#fields.hasErrors('leaveType')}" th:errors="*{leaveType}"></label> 
+					</div>
+					<div class="form-group">
+						<label class="col-sm-4 control-label">Leave Reason :</label>
+						<div class="col-sm-6">
+							<textarea th:field="*{reason}" placeholder="Leave Reason" class="form-control1" style="height: 100px;"></textarea>
 						</div>
 						 
-						<label class="alert-danger col-sm-6 col-sm-offset-4" th:if="${#fields.hasErrors('purpose')}" th:errors="*{purpose}" ></label>
+						<label class="alert-danger col-sm-6 col-sm-offset-4" th:if="${#fields.hasErrors('reason')}" th:errors="*{reason}" ></label>
 					</div>
 					<div class="row">
 						<div class="col-sm-8 col-sm-offset-4">
@@ -154,6 +165,8 @@
 										<li><a th:href="@{/user/home}"><i class="fa fa-home"></i> <span>Home</span><div class="clearfix"></div></a></li>
 										
 										<li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/user/manage-users}"><i class="fa fa-users"></i> <span>Manage Users</span><div class="clearfix"></div></a></li>
+										
+										<li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/user/manage-leaves}"><i class="fa fa-calendar-check-o"></i> <span>Manage Leaves</span><div class="clearfix"></div></a></li>
 										
 										<li><a th:href="@{/user/apply-leave}"><i class="fa fa-calendar-plus-o"></i> <span>Apply Leave</span><div class="clearfix"></div></a></li>
 										
