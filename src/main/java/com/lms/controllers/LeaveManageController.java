@@ -3,6 +3,7 @@ package com.lms.controllers;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -14,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -48,6 +50,7 @@ public class LeaveManageController {
 	if (bindingResult.hasErrors()) {
 	    mav.setViewName("applyLeave");
 	} else {
+	    leaveDetails.setUsername(userInfo.getEmail());
 	    leaveDetails.setEmployeeName(userInfo.getFirstName() + " " + userInfo.getLastName());
 	    leaveManageService.applyLeave(leaveDetails);
 	    mav.addObject("successMessage", "Your Leave Request is registered!");
@@ -56,10 +59,14 @@ public class LeaveManageController {
 	return mav;
     }
 
-    @RequestMapping(value = "/user/all-leaves", method = RequestMethod.GET)
-    public @ResponseBody String getAllLeaves() throws Exception {
+    @RequestMapping(value = "/user/get-all-leaves", method = RequestMethod.GET)
+    public @ResponseBody String getAllLeaves(@RequestParam(value = "pending", defaultValue = "false") boolean pending,
+	    @RequestParam(value = "accepted", defaultValue = "false") boolean accepted,
+	    @RequestParam(value = "rejected", defaultValue = "false") boolean rejected) throws Exception {
 
 	Iterator<LeaveDetails> iterator = leaveManageService.getAllLeaves().iterator();
+	if (pending || accepted || rejected)
+	    iterator = leaveManageService.getAllLeavesOnStatus(pending, accepted, rejected).iterator();
 	JSONArray jsonArr = new JSONArray();
 	SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-DD");
 	Calendar calendar = Calendar.getInstance();
@@ -107,6 +114,16 @@ public class LeaveManageController {
 	leaveManageService.updateLeaveDetails(leaveDetails);
 	mav.addObject("successMessage", "Updated Successfully!");
 	mav.setView(new RedirectView("/leave-management-system/user/manage-leaves"));
+	return mav;
+    }
+
+    @RequestMapping(value = "/user/my-leaves", method = RequestMethod.GET)
+    public ModelAndView showMyLeaves(ModelAndView mav) {
+
+	UserInfo userInfo = userInfoService.getUserInfo();
+	List<LeaveDetails> leavesList = leaveManageService.getAllLeavesOfUser(userInfo.getEmail());
+	mav.addObject("leavesList", leavesList);
+	mav.setViewName("myLeaves");
 	return mav;
     }
 }

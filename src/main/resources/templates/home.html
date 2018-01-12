@@ -24,6 +24,14 @@
 <link rel="shortcut icon" th:href="@{/img/favicon.png}">
 <link th:href="@{/css/fullcalendar.min.css}" rel='stylesheet' />
 <link th:href="@{/css/fullcalendar.print.min.css}" rel='stylesheet' media='print' />
+<style type="text/css">
+
+.filterStatus {
+    position: relative;
+    top: 2px;
+}
+
+</style>
 </head> 
 <body>
 <div class="page-container">
@@ -78,9 +86,13 @@
         <div class="grids">
 			<div class="agile-calendar-grid">
 				<div class="page">
+					<div class="">
+							<span class="label label-primary"><input type="checkbox" id="pending" value="pending" class="filterStatus"> Pending</span>
+							<span class="label label-success"><input type="checkbox" id="accepted" value="accepted" class="filterStatus"> Accepted</span>
+							<span class="label label-danger"><input type="checkbox" id="rejected" value="rejected" class="filterStatus"> Rejected</span>
+					</div>
 					
 					<div class="w3l-calendar-left">
-						<div class="calendar-heading"></div>
 						<div class="monthly" id="mycalendar"></div>
 					</div>
 					
@@ -92,7 +104,7 @@
 <script th:src="@{/js/moment.min.js}"></script>
 <script th:src="@{/js/fullcalendar.min.js}"></script>
 <script>
-
+var urlSrc = '/leave-management-system/user/get-all-leaves';
 $(document).ready(function() {
 
     $('#mycalendar').fullCalendar({
@@ -103,11 +115,19 @@ $(document).ready(function() {
       },
       defaultDate: moment().format("YYYY-MM-DD"),
       eventLimit: true, // allow "more" link when too many events
-      events: '/leave-management-system/user/all-leaves'
-    	  /* [{"title":"Project Manager on leave","start":"2017-12-30","end":"2017-12-30"},
-               {"title":"Project Manager on leave","start":"2018-01-01","end":"2018-01-09"},
-               {"title":"Project Manager on leave","start":"2018-01-15","end":"2018-01-19"}]
-       */
+      events: urlSrc
+    	  
+    });
+    
+    $('input:checkbox').change(function(){
+    	
+    	$('#mycalendar').fullCalendar('removeEventSource',urlSrc);
+    	urlSrc = '/leave-management-system/user/get-all-leaves?pending='+$('#pending').is(':checked')+'&accepted='+$('#accepted').is(':checked')+'&rejected='+$('#rejected').is(':checked')+'';
+
+    	$('#mycalendar').fullCalendar('removeEvents');
+    	$('#mycalendar').fullCalendar('addEventSource',urlSrc);
+    	//$('#mycalendar').fullCalendar('refetchEvents');
+        
     });
 
   });

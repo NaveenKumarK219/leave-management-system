@@ -25,6 +25,7 @@ INSERT INTO userinfo (email,active,last_name,first_name,password,role) values('m
 CREATE TABLE leave_details
 (
 	id serial,
+	username character varying(50) NOT NULL,
 	employee_name character varying(50) NOT NULL,
 	from_date timestamp without time zone NOT NULL,
 	to_date timestamp without time zone NOT NULL,

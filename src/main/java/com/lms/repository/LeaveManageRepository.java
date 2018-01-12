@@ -13,14 +13,14 @@ import com.lms.models.LeaveDetails;
 public interface LeaveManageRepository extends JpaRepository<LeaveDetails, Serializable> {
 
 
-
     @Query(nativeQuery = true, value = "select array_to_json(array_agg(row_to_json(t))) from (select employee_name||' on leave' as title,to_char(from_date,'YYYY-MM-DD') as start,to_char(to_date,'YYYY-MM-DD') as end from leave_details) as t;")
     public Object getAllLeavesAsJsonArray();
 
     @Query(nativeQuery = true, value = "select * from leave_details where active=true")
     public List<LeaveDetails> getAllActiveLeaves();
 
-    /*@Query(nativeQuery = true, value = "select employee_name,to_char(from_date,'YYYY-MM-DD') as from_date,to_char(to_date,'YYYY-MM-DD') as to_date from leave_details")
-    public List<LeaveDetails> getAllLeaves();*/
+    @Query(nativeQuery = true, value = "select * from leave_details where username=? order by id desc")
+    public List<LeaveDetails> getAllLeavesOfUser(String username);
+
 
 }

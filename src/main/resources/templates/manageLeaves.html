@@ -88,6 +88,8 @@
                 		<th>Name</th>
                 		<th>From Date</th>
                 		<th>To Date</th>
+                		<th>No of Days</th>
+                		<th>Leave Type</th>
                 		<th>Reason</th>
                 		<th>Action</th>
                 	  </tr>
@@ -96,12 +98,14 @@
 					  <tr th:each="leaveInfo,iterStat : ${leavesList}">
 	                	<!-- <td th:text="${iterStat.count}"></td> -->
 	                	<td th:text="${leaveInfo.employeeName}"></td>
-	                	<td th:text="${leaveInfo.fromDate}"></td>
-	                	<td th:text="${leaveInfo.toDate}"></td>
+	                	<td th:utext="${#dates.format(leaveInfo.fromDate,'dd MMM yyyy')}"></td>
+	                	<td th:utext="${#dates.format(leaveInfo.toDate,'dd MMM yyyy')}"></td>
+	                	<td th:text="${leaveInfo.duration}"></td>
+	                	<td th:text="${leaveInfo.leaveType}"></td>
 	                	<td th:text="${leaveInfo.reason}"></td>
 	                	<td>
-	                		<a th:href="@{/user/manage-leaves/accept/{id}(id=${leaveInfo.id})}" ><img title="Accept" th:src="@{/img/approve.jpg}"></img></a>
-	                		<a th:href="@{/user/manage-leaves/reject/{id}(id=${leaveInfo.id})}" ><img title="Reject" th:src="@{/img/reject.jpg}"></img></a>
+	                		<a th:href="@{/user/manage-leaves/accept/{id}(id=${leaveInfo.id})}" ><span class="label-success" style="color:  white;">ACCEPT</span></a>
+	                		<a th:href="@{/user/manage-leaves/reject/{id}(id=${leaveInfo.id})}" ><span class="label-danger" style="color:  white;">REJECT</span></a>
 	                	</td>
                 	  </tr>
 					</tbody>
