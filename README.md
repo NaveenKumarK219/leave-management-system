@@ -31,6 +31,7 @@ Leave Management System is a web application for managing employee leaves. This 
 
 ### My Leaves
 ![My Leaves](https://github.com/NaveenKumarK219/leave-management-system/blob/master/resources/screenshots/Screenshot_2018-11-12%20My%20Leaves.png)
+![My Leaves](https://github.com/NaveenKumarK219/leave-management-system/blob/master/resources/screenshots/Screenshot_2018-11-12%20My%20Leaves(1).png)
 
 ### Change Password
 ![Change Password](https://github.com/NaveenKumarK219/leave-management-system/blob/master/resources/screenshots/Screenshot_2018-11-12%20Change%20Password.png)
