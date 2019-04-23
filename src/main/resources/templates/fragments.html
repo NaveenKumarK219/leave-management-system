@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html>
+<head th:fragment="head-tag">
+<title>Leave Manage System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!-- Bootstrap Core CSS -->
+<link th:href="@{/css/bootstrap.min.css}" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link th:href="@{/css/style.css}" rel='stylesheet' type='text/css' />
+<link rel="stylesheet" th:href="@{/css/morris.css}" type="text/css"/>
+<!-- Graph CSS -->
+<link th:href="@{/css/font-awesome.css}" rel="stylesheet"> 
+<!-- jQuery -->
+<script th:src="@{/js/jquery-2.2.0.min.js}"></script>
+<!-- //jQuery -->
+<link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css'/>
+<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+<!-- lined-icons -->
+<!-- <link rel="stylesheet" th:href="@{/css/icon-font.min.css}" type='text/css' /> -->
+<!-- //lined-icons -->
+<link rel="shortcut icon" th:href="@{/img/favicon.png}">
+<link th:href="@{/css/fullcalendar.min.css}" rel='stylesheet' />
+<link th:href="@{/css/fullcalendar.print.min.css}" rel='stylesheet' media='print' />
+<style type="text/css">
+
+.filterStatus {
+    position: relative;
+    top: 2px;
+}
+
+</style>
+</head> 
+<body>
+<div class="page-container">
+	<!--/content-inner-->
+	<div class="left-content">
+		<div class="mother-grid-inner">
+            <!--header start here-->
+			<div class="header-main" th:fragment="header-main">
+				<div class="" style="float:left;">
+					<h2><a th:href="@{/user/home}">Leave Management System</a></h2>
+				</div>
+
+				<div class="profile_details w3l" style="float:right;">		
+					<ul>
+						<li class="dropdown profile_details_drop">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+								<div class="profile_img">	
+									<span class="prfil-img"><img th:src="@{/img/profile.jpg}" alt="">  </span> 
+									<div class="user-name">
+										<p sec:authentication="name"></p>
+										<span sec:authentication="principal.authorities"></span>
+									</div>
+									<i class="fa fa-angle-down"></i>
+									<i class="fa fa-angle-up"></i>
+									<div class="clearfix"></div>	
+								</div>	
+							</a>
+							<ul class="dropdown-menu drp-mnu"> 
+								<li> <a href="#"><i class="fa fa-user"></i> Profile</a> </li> 
+								<li> <a th:href="@{/logout}"><i class="fa fa-sign-out"></i> Logout</a> </li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+						
+			     <div class="clearfix"> </div>	
+			</div>
+			<!--heder end here-->
+			<ol class="breadcrumb">
+	            <li class="breadcrumb-item"><a th:href="@{/user/home}">Home</a> <i class="fa fa-angle-right"></i></li>
+	        </ol>
+     
+
+
+			<!--inner block start here-->
+			<div class="inner-block">
+			
+			</div>
+			<!--inner block end here-->
+			<!--copy rights start here-->
+			<div class="copyrights" th:fragment="footer">
+				<p>&copy; 2018 D&D by Navin. All Rights Reserved </p>
+				<!-- script-for sticky-nav -->
+				<script>
+					$(document).ready(function() {
+						 var navoffeset=$(".header-main").offset().top;
+						 $(window).scroll(function(){
+							var scrollpos=$(window).scrollTop(); 
+							if(scrollpos >=navoffeset){
+								$(".header-main").addClass("fixed");
+							}else{
+								$(".header-main").removeClass("fixed");
+							}
+						 });
+						 
+					});
+				</script>
+				<!-- /script-for sticky-nav -->
+			</div>	
+			<!--COPY rights end here-->
+		</div>
+	</div>
+  <!--//content-inner-->
+			<!--/sidebar-menu-->
+				<div class="sidebar-menu">
+					<header class="logo1">
+						<a href="#" class="sidebar-icon"> <span class="fa fa-bars"></span> </a> 
+					</header>
+						<div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+                           <div class="menu">
+									<ul id="menu" >
+										<li><a th:href="@{/user/home}"><i class="fa fa-home"></i> <span>Home</span><div class="clearfix"></div></a></li>
+										
+										<li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/user/manage-users}"><i class="fa fa-users"></i> <span>Manage Users</span><div class="clearfix"></div></a></li>
+										
+										<li sec:authorize="hasAuthority('MANAGER')"><a th:href="@{/user/manage-leaves}"><i class="fa fa-calendar-check-o"></i> <span>Manage Leaves</span><div class="clearfix"></div></a></li>
+										
+										<li><a th:href="@{/user/apply-leave}"><i class="fa fa-calendar-plus-o"></i> <span>Apply Leave</span><div class="clearfix"></div></a></li>
+										
+										<li><a th:href="@{/user/my-leaves}"><i class="fa fa-calendar-check-o"></i> <span>My Leaves</span><div class="clearfix"></div></a></li>
+										
+										<li><a th:href="@{/user/change-password}"><i class="fa fa-key"></i> <span>Change Password</span><div class="clearfix"></div></a></li>
+										 
+								  	</ul>
+							</div>
+				</div>
+				<div class="clearfix"></div>		
+</div>
+							<script>
+							var toggle = true;
+										
+							$(".sidebar-icon").click(function() {                
+							  if (toggle)
+							  {
+								$(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+								$("#menu span").css({"position":"absolute"});
+							  }
+							  else
+							  {
+								$(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+								setTimeout(function() {
+								  $("#menu span").css({"position":"relative"});
+								}, 400);
+							  }
+											
+											toggle = !toggle;
+										});
+							</script>
+<!--js -->
+<script th:src="@{/js/jquery.nicescroll.js}"></script>
+<script th:src="@{/js/scripts.js}"></script>
+<!-- Bootstrap Core JavaScript -->
+   <script th:src="@{/js/bootstrap.min.js}"></script>
+   <!-- /Bootstrap Core JavaScript -->	   
+
+</body>
+</html>
